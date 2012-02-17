@@ -1,13 +1,15 @@
 express = require("express")
+mongoose = require("mongoose")
 routes = require("./routes")
-mongoose = require "mongoose"
 
 app = module.exports = express.createServer()
 
 app.configure ->
   app.set "views", __dirname + "/views"
-  app.set "view engine", "jade"
+  app.set 'view engine', 'coffee'
+  app.register '.coffee', require('coffeekup').adapters.express
   app.use express.bodyParser()
+  app.use express.logger()
   app.use express.methodOverride()
   app.use express.cookieParser()
   app.use express.session(secret: "your secret here")
@@ -26,5 +28,6 @@ app.configure "production", ->
 
 app.get "/", routes.index
 app.get "/manage", routes.manage
+
 app.listen 3000
 console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
