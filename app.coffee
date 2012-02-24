@@ -1,8 +1,20 @@
 express = require("express")
 mongoose = require("mongoose")
-routes = require("./routes")
-
+routes = require './routes'
 app = module.exports = express.createServer()
+
+app.configure "development", ->
+  app.set 'db-uri', 'mongodb://localhost/communityManagementDev'
+  app.use express.errorHandler(
+    dumpExceptions: true
+    showStack: true
+  )
+
+app.configure "production", ->
+  app.set 'db-uri', 'mongodb://localhost/communityManagementProd'
+  app.use express.errorHandler()
+
+db = mongoose.connect app.set('db-uri')
 
 app.configure ->
   app.set "views", __dirname + "/views"
@@ -16,18 +28,11 @@ app.configure ->
   app.use app.router
   app.use express.static(__dirname + "/public")
 
-app.configure "development", ->
-  mongoose.connect = 'mongodb://localhost/communityManagement'
-  app.use express.errorHandler(
-    dumpExceptions: true
-    showStack: true
-  )
-
-app.configure "production", ->
-  app.use express.errorHandler()
+# Routes
 
 app.get "/", routes.index
 app.get "/manage", routes.manage
+
 
 app.listen 3000
 console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env

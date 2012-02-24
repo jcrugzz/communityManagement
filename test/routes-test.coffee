@@ -13,7 +13,7 @@ describe "routes", ->
       # Do Nothing
 
   before (done) ->
-    mongoose.connect 'mongodb://localhost/communityManagement-test', ->
+    mongoose.connect 'mongodb://localhost/communityManagementTest', ->
       done()
   describe 'index', ->
     it 'should display the index with assignments', (done) ->
