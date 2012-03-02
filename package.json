@@ -4,13 +4,13 @@
   , "private": true
   , "dependencies": {
       "express": "2.5.6"
-    , "coffeekup": "0.3.1"
+    , "coffeecup": "*"
     , "coffee-script": "1.2.0"
-  }
-  , "devDependencies": {
-      "mocha": "0.10.2"
+    , "mocha": "0.10.2"
     , "should": "0.5.1"
     , "mongoose": "*"
-
+    , "connect-assets": "*"
+    , "stylus": "*"
+    , "nib": "*"
   }
 }
