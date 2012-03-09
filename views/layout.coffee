@@ -2,9 +2,15 @@ doctype 5
 html ->
   head ->
     title "#{@title or 'Untitled'}"
-    text js('jQuery')
-    text css('/bootstrap/css/bootstrap')
-    text js('/bootstrap/js/bootstrap')
+    link rel: 'stylesheet', href: '/css/bootstrap.min.css'
+    script type: 'text/javascript', src: '/application.js'
+    coffeescript ->
+      jQuery = require("jqueryify")
+      exports = this
+      $ = jQuery
+      $ ->
+        App = require("index")
+        exports.app = new App(el: $("#page"))
   body ->
     div '.navbar', ->
       div '.navbar-inner', ->
@@ -14,7 +20,5 @@ html ->
             li -> a href: '/manage', -> 'Manage'
             li -> a href: '/users/', -> 'Users'
             li -> a href: '/assignments', -> 'Assignments'
-    div '#content.container', -> @body
-  footer ->
-    text js('client')
+  div "#page.container-fluid", ->
 

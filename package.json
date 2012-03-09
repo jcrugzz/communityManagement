@@ -4,12 +4,17 @@
   , "private": true
   , "dependencies": {
       "express": "2.5.6"
-    , "coffeecup": "*"
+    , "coffeecup": "latest"
     , "coffee-script": "1.2.0"
     , "mocha": "0.10.2"
     , "should": "0.5.1"
     , "mongoose": "*"
-    , "connect-assets": "*"
+    , "hem": "latest"
+    , "http-proxy": "latest"
+    , "es5-shimify": "latest"
+    , "json2ify": "latest"
+    , "jqueryify": "latest"
+    , "spine": "latest"
     , "stylus": "*"
     , "nib": "*"
   }

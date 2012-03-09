@@ -1,0 +1,15 @@
+<header>
+  <a class="edit btn">Edit</a>
+</header>
+
+<div class="content">
+  <p><%= @priority %></p>
+  <p><%= @name %></p>
+  <p><%= @email %></p>
+  <p><%= @soberPosition %></p>
+  <p><%= @credits %></p>
+  <p><%= @cook %></p>
+  <p><%= @dishes %></p>
+  <p><%= @mealPlan %></p>
+
+</div>

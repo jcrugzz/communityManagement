@@ -1,0 +1,44 @@
+<header>
+  <a class="btn save">Save</a>
+  <a class="btn btn-inverse delete">Delete</a>
+</header>
+
+<div class="content">
+  <form>
+    <label for="priority">
+      <span>Priority</span>
+      <input type="text" name="priority" value="<%= @priority %>">
+    </label>
+
+    <label for="name">
+      <span>Name</span>
+      <input type="text" name="name" value="<%= @name %>">
+    </label>
+
+    <label for="email">
+      <span>Email</span>
+      <input type="email" name="email" value="<%= @email %>">
+    </label>
+
+    <label for="soberPosition">
+      <span>Sober Position</span>
+      <input type="text" name="soberPosition" value="<%= @soberPosition %>">
+    </label>
+
+    <label for="cook" class="checkbox">
+      <span>Cook?</span>
+      <input type="checkbox" name="cook" value="<%= @cook %>" text="Cook?">
+    </label>
+
+    <label for="dishes" class="checkbox">
+      <span>Dishes?</span>
+      <input type="checkbox" name="dishes" value="<%= @dishes %>" text="Dishes?">
+    </label>
+
+    <label for="mealPlan" class="checkbox">
+      <span>Meal Plan?</span>
+      <input type="checkbox" name="mealPlan" value="<%= @mealPlan %>">
+    </label>
+    <button class="btn">Save</button>
+  </form>
+</div>

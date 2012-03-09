@@ -1,6 +1,9 @@
+require('coffee-script')
 express = require("express")
 mongoose = require("mongoose")
+httpProxy = require('http-proxy')
 routes = require './routes'
+
 app = module.exports = express.createServer()
 
 app.configure "development", ->
@@ -8,6 +11,18 @@ app.configure "development", ->
   app.use express.errorHandler(
     dumpExceptions: true
     showStack: true
+
+  app.use express.errorHandler({ dumpExceptions: true, showStack: true })
+
+  proxy = new httpProxy.RoutingProxy
+
+  hemProxy = (req, res) ->
+    proxy.proxyRequest(req, res, {
+      host: 'localhost',
+      port: 9294
+    })
+
+  app.get '/application.(css|js)', hemProxy
   )
 
 app.configure "production", ->
@@ -17,19 +32,18 @@ app.configure "production", ->
 app.configure ->
   publicDir = "#{__dirname}/public"
   viewsDir = "#{__dirname}/views"
-  coffeeDir = "#{viewsDir}/coffeescript"
 
   app.set "views", viewsDir
   app.set 'view engine', 'coffee'
   app.register '.coffee', require('coffeecup').adapters.express
   app.use express.bodyParser()
   app.use express.static(publicDir)
-  app.use require('connect-assets')()
   #app.use express.logger()
   app.use express.methodOverride()
   app.use express.cookieParser()
   app.use express.session(secret: "your secret here")
   app.use app.router
+
 
 # Routes
 app.get "/", routes.index
