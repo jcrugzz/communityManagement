@@ -2,6 +2,7 @@ require('coffee-script')
 express = require("express")
 mongoose = require("mongoose")
 httpProxy = require('http-proxy')
+stylus = require('stylus')
 routes = require './routes'
 
 app = module.exports = express.createServer()

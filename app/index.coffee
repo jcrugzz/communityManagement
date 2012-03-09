@@ -8,6 +8,7 @@ class App extends Spine.Controller
     super
 
     @users = new Users
+    @append require("views/userHeading")()
     @append @users.active()
 
 

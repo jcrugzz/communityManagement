@@ -2,7 +2,8 @@ doctype 5
 html ->
   head ->
     title "#{@title or 'Untitled'}"
-    link rel: 'stylesheet', href: '/css/bootstrap.min.css'
+    link rel: 'stylesheet', href: '/css/bootstrap.css'
+    link rel: 'stylesheet', href: '/css/index.css'
     script type: 'text/javascript', src: '/application.js'
     coffeescript ->
       jQuery = require("jqueryify")
@@ -20,5 +21,5 @@ html ->
             li -> a href: '/manage', -> 'Manage'
             li -> a href: '/users/', -> 'Users'
             li -> a href: '/assignments', -> 'Assignments'
-  div "#page.container-fluid", ->
+  div "#page.container", ->
 

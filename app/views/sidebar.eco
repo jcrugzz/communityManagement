@@ -1,8 +1,9 @@
 <header>
-  <input type="search" placeholder="search" results="0" incremental="true" autofocus>
+  <input class="span4" type="search" placeholder="search" results="0" incremental="true" autofocus>
 </header>
 
-<div class="items"></div>
+<ul class="items nav nav-tabs nav-stacked">
+</ul>
 
 <footer>
   <button class="btn">New User</button>

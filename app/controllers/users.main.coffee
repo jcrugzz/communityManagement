@@ -8,10 +8,10 @@ class Show extends Spine.Controller
 
   events:
     'click .edit': 'edit'
+    'click .delete': 'delete'
 
   constructor: ->
     super
-
     #Bind change callback to the active event
     @active @change
 
@@ -25,6 +25,10 @@ class Show extends Spine.Controller
   edit: ->
     @navigate('/users', @item.id, 'edit')
 
+  delete: ->
+    if confirm('Are you sure?')
+      @item.destroy()
+
 
 class Edit extends Spine.Controller
 
@@ -33,7 +37,6 @@ class Edit extends Spine.Controller
   events:
     'submit form': 'submit'
     'click .save': 'submit'
-    'click .delete': 'delete'
 
   elements:
     'form': 'form'
@@ -54,11 +57,9 @@ class Edit extends Spine.Controller
     @item.fromForm(@form).save()
     @navigate('/users', @item.id)
 
-  delete: ->
-    @item.destroy() if confirm('Are you sure?')
 
 class Main extends Spine.Stack
-  className: 'span8 main stack'
+  className: 'span8 main viewport'
 
   controllers:
     show: Show

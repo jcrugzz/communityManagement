@@ -1,15 +1,25 @@
-<header>
-  <a class="edit btn">Edit</a>
-</header>
-
 <div class="content">
-  <p><%= @priority %></p>
-  <p><%= @name %></p>
-  <p><%= @email %></p>
-  <p><%= @soberPosition %></p>
-  <p><%= @credits %></p>
-  <p><%= @cook %></p>
-  <p><%= @dishes %></p>
-  <p><%= @mealPlan %></p>
+  <label for="priority">
+      <h4>Priority:</h4>
+      <span><%= @priority %></span>
+    </label>
 
+    <label for="name">
+      <h4>Name:</h4>
+      <span><%= @name %></span>
+    </label>
+
+    <label for="email">
+      <h4>Email:</h4>
+      <span><%= @email %></span>
+    </label>
+
+    <label for="soberPosition">
+      <h4>Sober Position:</h4>
+      <span><%= @soberPosition %></span>
+    </label>
 </div>
+<footer>
+  <a class="edit btn">Edit</a>
+  <a class="btn btn-inverse delete">Delete</a>
+</footer>

@@ -6,13 +6,13 @@ Main    = require('controllers/users.main')
 Sidebar = require('controllers/users.sidebar')
 
 class Users extends Spine.Controller
-  className: 'row-fluid users'
+  className: 'row users'
 
   constructor: ->
     super
 
-    @sidebar = new Sidebar
-    @main   = new Main
+    @sidebar  = new Sidebar
+    @main     = new Main
 
     @routes
       '/users/:id/edit': (params) ->
@@ -22,6 +22,9 @@ class Users extends Spine.Controller
       '/users/:id': (params) ->
         @sidebar.active(params)
         @main.show.active(params)
+
+      '/users': (params) ->
+        @sidebar.active(params)
 
 
     @append @sidebar, @main
