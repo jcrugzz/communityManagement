@@ -13,6 +13,7 @@ class Sidebar extends Spine.Controller
   events:
     'keyup input': 'filter'
     'click footer button': 'create'
+    'click .item > a': 'click'
 
   constructor: ->
     super
@@ -41,6 +42,9 @@ class Sidebar extends Spine.Controller
 
   change: (item) =>
     @navigate '/users', item.id
+
+  click: (e) ->
+    e.preventDefault()
 
   create: ->
     item = User.create()

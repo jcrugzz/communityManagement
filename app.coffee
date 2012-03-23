@@ -32,6 +32,8 @@ app.configure ->
   viewsDir = "#{__dirname}/views"
 
   app.set "views", viewsDir
+  app.set 'view options',
+    layout: false
   app.set 'view engine', 'coffee'
   app.register '.coffee', require('coffeecup').adapters.express
   app.use express.bodyParser()

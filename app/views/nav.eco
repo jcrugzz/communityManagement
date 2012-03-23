@@ -1,9 +1,7 @@
-<div class="navbar">
+<div class="navbar fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <div class="brand">
-        ΦΚΘ
-      </div>
+      <a id="home" class="brand", href="#">ΦΚΘ</a>
       <ul class="nav">
         <li>
           <a id="home", href="#">Home</a>

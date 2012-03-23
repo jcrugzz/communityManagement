@@ -5,32 +5,21 @@ class Nav extends Spine.Controller
   className: 'navigation'
 
   events:
-    'click #home': 'home'
-    'click #manage': 'manage'
-    'click #users': 'users'
-    'click #assignments': 'assignments'
+    'click .navbar > .navbar-inner > .container a': 'clicked'
 
   constructor: ->
     super
 
     @html require('views/nav')()
 
-  home: (e) ->
+  clicked: (e) ->
     e.preventDefault()
-    @navigate('/')
-
-  manage: (e) ->
-    e.preventDefault()
-    @navigate('/manage')
-
-  users: (e) ->
-    e.preventDefault()
-    @navigate('/users')
-
-  assignments: (e) ->
-    e.preventDefault()
-    @navigate('/assignments')
-
+    element = $(e.target)
+    id = element.attr('id')
+    if id is "home"
+      @navigate('/')
+    else
+      @navigate("/#{id}")
 
 module.exports = Nav
 
