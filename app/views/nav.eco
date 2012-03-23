@@ -1,0 +1,23 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <div class="brand">
+        ΦΚΘ
+      </div>
+      <ul class="nav">
+        <li>
+          <a id="home", href="#">Home</a>
+        </li>
+        <li>
+          <a id="manage", href="#">Manage</a>
+        </li>
+        <li>
+          <a id="users", href="#">Users</a>
+        </li>
+        <li>
+          <a id="assignments", href="#">Assignments</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

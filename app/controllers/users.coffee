@@ -2,8 +2,9 @@ Spine = require('spine')
 User  = require('models/user')
 $     = Spine.$
 
-Main    = require('controllers/users.main')
-Sidebar = require('controllers/users.sidebar')
+Main        = require('controllers/users.main')
+Sidebar     = require('controllers/users.sidebar')
+UserHeading = require('controllers/userHeading')
 
 class Users extends Spine.Controller
   className: 'row users'
@@ -11,8 +12,9 @@ class Users extends Spine.Controller
   constructor: ->
     super
 
-    @sidebar  = new Sidebar
-    @main     = new Main
+    @userHeading = new UserHeading
+    @sidebar     = new Sidebar
+    @main        = new Main
 
     @routes
       '/users/:id/edit': (params) ->
@@ -23,12 +25,10 @@ class Users extends Spine.Controller
         @sidebar.active(params)
         @main.show.active(params)
 
-      '/users': (params) ->
-        @sidebar.active(params)
-
-
+    @append @userHeading
     @append @sidebar, @main
 
     User.fetch()
+
 
 module.exports = Users

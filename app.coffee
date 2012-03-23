@@ -12,9 +12,7 @@ app.configure "development", ->
   app.use express.errorHandler(
     dumpExceptions: true
     showStack: true
-
-  app.use express.errorHandler({ dumpExceptions: true, showStack: true })
-
+  )
   proxy = new httpProxy.RoutingProxy
 
   hemProxy = (req, res) ->
@@ -24,7 +22,6 @@ app.configure "development", ->
     })
 
   app.get '/application.(css|js)', hemProxy
-  )
 
 app.configure "production", ->
   mongoose.connect 'mongodb://localhost/communityManagementProd'

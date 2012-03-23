@@ -11,15 +11,6 @@ html ->
       $ = jQuery
       $ ->
         App = require("index")
-        exports.app = new App(el: $("#page"))
+        exports.app = new App(el: $("body"))
   body ->
-    div '.navbar', ->
-      div '.navbar-inner', ->
-        div '.container', ->
-          a '.brand', href: '/', -> 'ΦΚΘ'
-          ul '.nav', ->
-            li -> a href: '/manage', -> 'Manage'
-            li -> a href: '/users/', -> 'Users'
-            li -> a href: '/assignments', -> 'Assignments'
-  div "#page.container", ->
 
