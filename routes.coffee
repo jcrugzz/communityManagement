@@ -10,9 +10,7 @@ module.exports =
 
   userIndex: (req, res) ->
     User.find {}, (err, users) ->
-      res.render 'userIndex',
-        title: 'User List',
-        users: users
+      res.send users
 
   newUser: (req, res) ->
     res.render 'addUser',
@@ -23,7 +21,7 @@ module.exports =
     new User(req.body.user).save (err, user) ->
       console.log(err)
       console.log(user)
-      res.redirect '/users'
+      res.send user
 
   editUser: (req, res) ->
     User.findById req.params.id, (err, user) ->
@@ -52,7 +50,6 @@ module.exports =
         else
           console.log 'Successful Update'
 
-        res.redirect '/users'
     else
       console.log err
       console.log 'User not Found'

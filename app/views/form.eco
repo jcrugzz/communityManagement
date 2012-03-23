@@ -5,9 +5,14 @@
       <input type="text" name="priority" value="<%= @priority %>">
     </label>
 
-    <label for="name">
-      <span>Name</span>
-      <input type="text" name="name" value="<%= @name %>">
+    <label for="firstName">
+      <span>First Name</span>
+      <input type="text" name="firstName" value="<%= @firstName %>">
+    </label>
+
+    <label for="lastName">
+      <span>Last Name</span>
+      <input type="text" name="lastName" value="<%= @lastName %>">
     </label>
 
     <label for="email">

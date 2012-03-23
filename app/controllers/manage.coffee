@@ -7,6 +7,6 @@ class Manage extends Spine.Controller
   constructor: ->
     super
 
-
+    @html require('views/manage.tabs')
 
 module.exports = Manage

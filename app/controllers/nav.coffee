@@ -14,11 +14,17 @@ class Nav extends Spine.Controller
 
   clicked: (e) ->
     e.preventDefault()
+    $(".navbar > .navbar-inner > .container > ul > li").removeClass("active")
     element = $(e.target)
     id = element.attr('id')
-    if id is "home"
+    cls = element.attr('class')
+    @log cls
+    @log element
+    if id is "home" or cls is "brand"
+      $("#home").parent().addClass("active")
       @navigate('/')
     else
+      $("#" + id).parent().addClass("active")
       @navigate("/#{id}")
 
 module.exports = Nav

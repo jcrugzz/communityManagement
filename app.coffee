@@ -52,7 +52,7 @@ app.get "/manage", routes.manage
 # User Routes
 app.get '/users', routes.userIndex
 app.get '/users/new', routes.newUser
-app.post '/users/new', routes.addUser
+app.post '/users', routes.addUser
 app.get '/users/:id', routes.viewUser
 app.get '/users/:id/edit', routes.editUser
 app.put '/users/:id', routes.updateUser

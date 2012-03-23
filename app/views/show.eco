@@ -6,7 +6,7 @@
 
     <label for="name">
       <h4>Name:</h4>
-      <span><%= @name %></span>
+      <span><%= @firstName + ' ' + @lastName %></span>
     </label>
 
     <label for="email">

@@ -1,0 +1,29 @@
+<div class="page-header row">
+  <h1>Sign Ups</h1>
+  <p>Weekly Rotations</p>
+</div>
+<div class="tabs row">
+  <ul class="nav nav-tabs">
+    <li data-name="workDetails" class="active">
+      <a href="#">Work Details</a>
+    </li>
+    <li data-name="kitchen">
+      <a href="#">Kitchen</a>
+    </li>
+    <li data-name="midweeks">
+      <a href="#">MidWeeks</a>
+    </li>
+    <li data-name="bitch">
+      <a href="#">Bitch</a>
+    </li>
+    <li data-name="gmen">
+      <a href="#">G Men</a>
+    </li>
+    <li data-name="soberHost">
+      <a href="#">Sober Host</a>
+    </li>
+    <li data-name="soberDriver">
+      <a href="#">Sober Driver</a>
+    </li>
+  </ul>
+</div>
