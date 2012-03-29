@@ -9,6 +9,12 @@ class App extends Spine.Controller
   constructor: ->
     super
 
+    settings =
+      headers:
+        "Access-Control-Allow-Origin": "*"
+
+    $.ajaxSetup settings
+
     @nav = new Nav
     @page = new Page
 

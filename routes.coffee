@@ -34,7 +34,8 @@ module.exports =
    User.findById req.params.id, (err, user) ->
     console.log user
     if not err? and user?
-      console.log req.body.user
+      console.log req
+      console.log req.params
       user.priority = req.body.user.priority
       user.firstName = req.body.user.firstName
       user.lastName = req.body.user.lastName

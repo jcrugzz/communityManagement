@@ -4,25 +4,25 @@
 </div>
 <div class="tabs row">
   <ul class="nav nav-tabs">
-    <li data-name="workDetails" class="active">
+    <li id="workDetails" class="active">
       <a href="#">Work Details</a>
     </li>
-    <li data-name="kitchen">
+    <li id="kitchen">
       <a href="#">Kitchen</a>
     </li>
-    <li data-name="midweeks">
+    <li id="midweeks">
       <a href="#">MidWeeks</a>
     </li>
-    <li data-name="bitch">
+    <li id="bitch">
       <a href="#">Bitch</a>
     </li>
-    <li data-name="gmen">
+    <li id="gmen">
       <a href="#">G Men</a>
     </li>
-    <li data-name="soberHost">
+    <li id="soberHost">
       <a href="#">Sober Host</a>
     </li>
-    <li data-name="soberDriver">
+    <li id="soberDriver">
       <a href="#">Sober Driver</a>
     </li>
   </ul>

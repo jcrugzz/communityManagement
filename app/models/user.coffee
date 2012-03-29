@@ -4,9 +4,10 @@ class User extends Spine.Model
   @configure 'User', 'priority',
     'firstName', 'lastName', 'email',
     'credits', 'cook', 'dishes',
-    'mealPlan', 'soberPosition'
+    'mealPlan', 'wdExempt', 'soberPosition'
 
   @extend Spine.Model.Ajax
+
 
   @filter: (query) ->
     return @all() unless query
@@ -15,13 +16,17 @@ class User extends Spine.Model
       item.name?.toLowerCase().indexOf(query) isnt -1 or
         item.email?.toLowerCase().indexOf(query) isnt -1
 
+
   @fromJSON: (objects) ->
     return unless objects
     if typeof objects is 'string'
       objects = JSON.parse(objects)
 
     # Do some customization...
-
+    if Spine.isArray(objects)
+      for object in objects
+        object.id = object._id
+        delete object._id
 
     objects
     if Spine.isArray(objects)
@@ -30,8 +35,11 @@ class User extends Spine.Model
       new @(objects)
 
   toJSON: (objects) ->
-    data = @attributes()
+    atts = @attributes()
     # Do some customization...
+    atts._id = atts.id
+    delete atts.id
+    atts
 
 
 module.exports = User

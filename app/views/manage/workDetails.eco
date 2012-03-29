@@ -1,0 +1,11 @@
+<table>
+  <thead>
+    <tr>
+      <th>Priority</th>
+      <th>Name</th>
+      <th>Credits</th>
+      <th>Assign</th>
+    </tr>
+  </thead>
+  <tbody class="items"></tbody>
+</table>

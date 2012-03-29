@@ -28,6 +28,7 @@ User.add(
   cook: {type: Boolean, default: false}
   dishes: {type: Boolean, default: false}
   mealPlan: {type: Boolean, default: false}
+  wdExempt: {type: Boolean, default: false}
   soberPosition: {type: String}
   assignments: [Assignment]
 )

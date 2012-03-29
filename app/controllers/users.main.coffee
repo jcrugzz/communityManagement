@@ -55,6 +55,8 @@ class Edit extends Spine.Controller
   submit: (e) ->
     e.preventDefault()
     @item.fromForm(@form).save()
+    @log @form
+    @log @item.fromForm(@form)
     @navigate('/users', @item.id)
 
 

@@ -2,7 +2,7 @@ Spine = require('spine')
 User  = require('models/user')
 $     = Spine.$
 
-Main        = require('controllers/users.main')
+Main    = require('controllers/users.main')
 Sidebar     = require('controllers/users.sidebar')
 UserHeading = require('controllers/userHeading')
 

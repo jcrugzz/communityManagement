@@ -14,6 +14,6 @@ class Main extends Spine.Stack
     manage: Manage
     assignments: Assignments
 
-  default: 'users'
+  default: 'manage'
 
 module.exports = Main
