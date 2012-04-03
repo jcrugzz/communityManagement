@@ -1,11 +1,13 @@
-<table>
+<table class="table table-striped ">
   <thead>
     <tr>
       <th>Priority</th>
       <th>Name</th>
       <th>Credits</th>
-      <th>Assign</th>
+      <th>Assigned</th>
+      <th>Action</th>
     </tr>
   </thead>
-  <tbody class="items"></tbody>
+  <tbody>
+  </tbody>
 </table>

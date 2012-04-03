@@ -1,0 +1,26 @@
+<td><%= @priority %></td>
+<td><%= @firstName + ' ' + @lastName %></td>
+<td><%= @soberCredits %></td>
+<td><%= @assignments %></td>
+<td>
+  <div class="btn-group">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+      Assign
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="#">Tuesday</a>
+      </li>
+      <li>
+        <a href="#">Thursday</a>
+      </li>
+      <li>
+        <a href="#">Friday</a>
+      </li>
+      <li>
+        <a href="#">Saturday</a>
+      </li>
+    </ul>
+  </div>
+</td>

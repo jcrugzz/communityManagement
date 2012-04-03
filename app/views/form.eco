@@ -2,42 +2,53 @@
   <form>
     <label for="priority">
       <span>Priority</span>
-      <input type="text" name="priority" value="<%= @priority %>">
+      <input type="text" name="priority" value="<%= @priority %>"/>
     </label>
 
     <label for="firstName">
       <span>First Name</span>
-      <input type="text" name="firstName" value="<%= @firstName %>">
+      <input type="text" name="firstName" value="<%= @firstName %>"/>
     </label>
 
     <label for="lastName">
       <span>Last Name</span>
-      <input type="text" name="lastName" value="<%= @lastName %>">
+      <input type="text" name="lastName" value="<%= @lastName %>"/>
     </label>
 
     <label for="email">
       <span>Email</span>
-      <input type="email" name="email" value="<%= @email %>">
+      <input type="email" name="email" value="<%= @email %>"/>
     </label>
 
     <label for="soberPosition">
       <span>Sober Position</span>
-      <input type="text" name="soberPosition" value="<%= @soberPosition %>">
+      <input type="text" name="soberPosition" value="<%= @soberPosition %>"/>
     </label>
 
     <label for="cook" class="checkbox">
       <span>Cook?</span>
-      <input type="checkbox" name="cook" checked="<%= @cook %>" text="Cook?">
+      <% if @cook: %>
+        <input type="checkbox" name="cook" value="true" checked="checked"/>
+      <% else: %>
+        <input type="checkbox" name="cook" value="true">
+      <% end %>
     </label>
 
     <label for="dishes" class="checkbox">
       <span>Dishes?</span>
-      <input type="checkbox" name="dishes" checked="<%= @dishes %>" text="Dishes?">
+      <% if @dishes: %>
+        <input type="checkbox" name="dishes" value="true" checked="checked"/>
+      <% else: %>
+        <input type="checkbox" name="dishes" value="true">
+      <% end %>
     </label>
 
     <label for="mealPlan" class="checkbox">
       <span>Meal Plan?</span>
-      <input type="checkbox" name="mealPlan" checked="<%= @mealPlan %>">
+      <% if @mealPlan: %>
+        <input type="checkbox" name="mealPlan" checked="checked"/>
+      <% else: %>
+        <input type="checkbox" name="mealPlan" value="true"/>
     </label>
     <button class="btn">Save</button>
   </form>

@@ -28,7 +28,5 @@ class Users extends Spine.Controller
     @append @userHeading
     @append @sidebar, @main
 
-    User.fetch()
-
 
 module.exports = Users

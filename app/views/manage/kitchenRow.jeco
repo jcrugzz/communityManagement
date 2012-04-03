@@ -1,0 +1,9 @@
+<td><%= @priority %></td>
+<td><%= @firstName + ' ' + @lastName %></td>
+<td><%= @kitchenCredits %></td>
+<td><%= @assignments %></td>
+<td>
+  <a class="btn" href="#">
+    Assign
+  </a>
+</td>

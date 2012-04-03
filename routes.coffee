@@ -34,26 +34,31 @@ module.exports =
    User.findById req.params.id, (err, user) ->
     console.log user
     if not err? and user?
-      console.log req
+      console.log req.body
       console.log req.params
-      user.priority = req.body.user.priority
-      user.firstName = req.body.user.firstName
-      user.lastName = req.body.user.lastName
-      user.email = req.body.user.email
-      user.cook = req.body.user.cook
-      user.dishes = req.body.user.dishes
-      user.mealPlan = req.body.user.mealPlan
+      user.priority = req.body.priority
+      user.firstName = req.body.firstName
+      user.lastName = req.body.lastName
+      user.soberPosition = req.body.soberPosition
+      user.email = req.body.email
+      user.cook = req.body.cook
+      user.dishes = req.body.dishes
+      user.mealPlan = req.body.mealPlan
       user.save (err, user) ->
         if err?
           console.log err
           console.log 'Failed Update'
+          res.send err
 
         else
           console.log 'Successful Update'
+          console.log user
+          res.send user
 
     else
       console.log err
       console.log 'User not Found'
+      res.send err
 
   viewUser: (req, res) ->
     User.findById req.params.id, (err, user) ->

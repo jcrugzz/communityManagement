@@ -1,4 +1,5 @@
 Spine = require('spine')
+User  = require('models/user')
 $     = Spine.$
 
 Main = require('controllers/main')
@@ -22,5 +23,7 @@ class Page extends Spine.Controller
         @main.assignments.active()
 
     @append @main
+
+    User.fetch()
 
 module.exports = Page

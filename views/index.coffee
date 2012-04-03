@@ -13,3 +13,6 @@ html ->
         App = require("index")
         exports.app = new App(el: $("body"))
   body ->
+
+  footer ->
+    script type: 'text/javascript', src: '/js/bootstrap-dropdown.js'

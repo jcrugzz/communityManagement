@@ -23,7 +23,12 @@ User.add(
   firstName: {type: String}
   lastName: {type: String}
   email: {type: String}
-  credits: {type: Number, default: 0, min: 0}
+  workDetailCredits: {type: Number, default: 0, min: 0}
+  kitchenCredits: {type: Number, default: 0, min: 0}
+  midweekCredits: {type: Number, default: 0, min: 0}
+  soberCredits: {type: Number, default: 0, min: 0}
+  bitchCredits: {type: Number, default: 0, min: 0}
+  gmenCredits: {type: Number, default: 0, min: 0}
   # Use until Roles implemented into User model for Login purposes
   cook: {type: Boolean, default: false}
   dishes: {type: Boolean, default: false}

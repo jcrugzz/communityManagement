@@ -3,8 +3,10 @@ Spine = require('spine')
 class User extends Spine.Model
   @configure 'User', 'priority',
     'firstName', 'lastName', 'email',
-    'credits', 'cook', 'dishes',
-    'mealPlan', 'wdExempt', 'soberPosition'
+    'workDetailCredits', 'kitchenCredits', 'midweekCredits',
+    'soberCredits', 'bitchCredits', 'gmenCredits',
+    'cook', 'dishes', 'mealPlan',
+    'wdExempt', 'soberPosition', 'assignments'
 
   @extend Spine.Model.Ajax
 
@@ -13,8 +15,9 @@ class User extends Spine.Model
     return @all() unless query
     query = query.toLowerCase()
     @select (item) ->
-      item.name?.toLowerCase().indexOf(query) isnt -1 or
-        item.email?.toLowerCase().indexOf(query) isnt -1
+      item.firstName?.toLowerCase().indexOf(query) isnt -1 or
+        item.lastName?.toLowerCase().indexOf(query) isnt -1 or
+          item.email?.toLowerCase().indexOf(query) isnt -1
 
 
   @fromJSON: (objects) ->
