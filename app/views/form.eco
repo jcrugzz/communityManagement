@@ -1,5 +1,5 @@
 <div class="content">
-  <form>
+  <form id="userSubmit">
     <label for="priority">
       <span>Priority</span>
       <input type="text" name="priority" value="<%= @priority %>"/>
@@ -27,29 +27,23 @@
 
     <label for="cook" class="checkbox">
       <span>Cook?</span>
-      <% if @cook: %>
-        <input type="checkbox" name="cook" value="true" checked="checked"/>
-      <% else: %>
-        <input type="checkbox" name="cook" value="true">
-      <% end %>
+      <input type="checkbox" name="cook" value="<%= @cook %>" init="<%= @cook %>"/>
     </label>
 
     <label for="dishes" class="checkbox">
       <span>Dishes?</span>
-      <% if @dishes: %>
-        <input type="checkbox" name="dishes" value="true" checked="checked"/>
-      <% else: %>
-        <input type="checkbox" name="dishes" value="true">
-      <% end %>
+      <input type="checkbox" name="dishes" value="<%= @dishes %>" init="<%= @dishes %>"/>
+    </label>
+
+    <label for="wdExempt" class="checkbox">
+      <span>WD Exempt?</span>
+      <input type="checkbox" name="wdExempt" value="<%= @wdExempt %>" init="<%= @wdExempt %>"/>
     </label>
 
     <label for="mealPlan" class="checkbox">
       <span>Meal Plan?</span>
-      <% if @mealPlan: %>
-        <input type="checkbox" name="mealPlan" checked="checked"/>
-      <% else: %>
-        <input type="checkbox" name="mealPlan" value="true"/>
+      <input type="checkbox" name="mealPlan" value="<%= @mealPlan %>" init="<%= @mealPlan %>"/>
     </label>
-    <button class="btn">Save</button>
+    <button class="save btn">Save</button>
   </form>
 </div>

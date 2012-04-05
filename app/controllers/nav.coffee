@@ -20,8 +20,8 @@ class Nav extends Spine.Controller
     cls = element.attr('class')
     @log cls
     @log element
-    if id is "home" or cls is "brand"
-      $("#home").parent().addClass("active")
+    if id is "dashboard" or cls is "brand"
+      $("#dashboard").parent().addClass("active")
       @navigate('/')
     else
       $("#" + id).parent().addClass("active")

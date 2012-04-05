@@ -37,9 +37,10 @@ class Edit extends Spine.Controller
   events:
     'submit form': 'submit'
     'click .save': 'submit'
+    "change input[type='checkbox']": 'checkBoxSet'
 
   elements:
-    'form': 'form'
+    'form :input': 'form'
 
   constructor: ->
     super
@@ -47,16 +48,35 @@ class Edit extends Spine.Controller
 
   render: ->
     @html require('views/form')(@item)
+    $(':checkbox').each ->
+      console.log(@value)
+      if @value is "true"
+        console.log(@)
+        $(@).val("1")
+        $(@).attr("checked", "checked")
+      else
+        $(@).val("0")
+        $(@).removeAttr("checked")
+
 
   change: (params) =>
     @item = User.find(params.id)
     @render()
 
+  checkBoxSet: (e) ->
+    element = $(e.target)
+    if $(element).is(":checked")
+      element.val("1")
+    else
+      element.val("0")
+      element.removeAttr("checked")
+
   submit: (e) ->
     e.preventDefault()
-    @item.fromForm(@form).save()
     @log @form
-    @log @item.fromForm(@form)
+
+    @item.fromForm(@form).save()
+    @log @item
     @navigate('/users', @item.id)
 
 

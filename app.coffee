@@ -15,13 +15,7 @@ app.configure "development", ->
   )
   proxy = new httpProxy.RoutingProxy
 
-  hemProxy = (req, res) ->
-    proxy.proxyRequest(req, res, {
-      host: 'localhost',
-      port: 9294
-    })
-
-  app.get '/application.(css|js)', hemProxy
+  app.get '/application.(css|js)'
 
 app.configure "production", ->
   mongoose.connect 'mongodb://localhost/communityManagementProd'

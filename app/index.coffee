@@ -1,6 +1,7 @@
 require 'lib/setup'
 
 Spine = require('spine')
+User  = require('models/user')
 
 Nav  = require('controllers/nav')
 Page = require('controllers/page')
@@ -14,6 +15,8 @@ class App extends Spine.Controller
 
     @append @nav
     @append @page
+
+    User.fetch()
 
     Spine.Route.setup()
 

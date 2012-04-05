@@ -44,6 +44,7 @@ module.exports =
       user.cook = req.body.cook
       user.dishes = req.body.dishes
       user.mealPlan = req.body.mealPlan
+      user.wdExempt = req.body.wdExempt
       user.save (err, user) ->
         if err?
           console.log err

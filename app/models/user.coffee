@@ -1,4 +1,5 @@
 Spine = require('spine')
+$     = Spine.$
 
 class User extends Spine.Model
   @configure 'User', 'priority',
@@ -10,6 +11,11 @@ class User extends Spine.Model
 
   @extend Spine.Model.Ajax
 
+  fromForm: (form) ->
+    result = {}
+    form.each ->
+      result[@name] = $(@).val()
+    @load(result)
 
   @filter: (query) ->
     return @all() unless query

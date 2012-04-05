@@ -4,7 +4,7 @@
       <a class="brand", href="#">ΦΚΘ</a>
       <ul class="nav">
         <li>
-          <a id="home", href="#">Home</a>
+          <a id="dashboard", href="#">Dashboard</a>
         </li>
         <li>
           <a id="manage", href="#">Manage</a>

@@ -1,5 +1,4 @@
 Spine = require('spine')
-User  = require('models/user')
 $     = Spine.$
 
 Main = require('controllers/main')
@@ -14,7 +13,7 @@ class Page extends Spine.Controller
 
     @routes
       '/': ->
-        @main.home.active()
+        @main.dashboard.active()
       '/manage': ->
         @main.manage.active()
       '/users': ->
@@ -23,7 +22,5 @@ class Page extends Spine.Controller
         @main.assignments.active()
 
     @append @main
-
-    User.fetch()
 
 module.exports = Page

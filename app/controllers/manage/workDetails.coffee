@@ -43,7 +43,10 @@ class WorkDetails extends Spine.Controller
     @here.append(row.render().el)
 
   addAll: =>
-    User.each(@addOne)
+    users = User.select (user) ->
+      user.wdExempt == false
+    @addOne(user) for user in users
+
 
 
 module.exports = WorkDetails

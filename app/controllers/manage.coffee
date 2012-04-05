@@ -1,4 +1,5 @@
 Spine = require('spine')
+User  = require('models/user')
 $     = Spine.$
 
 Main = require('controllers/manage/main')
@@ -36,6 +37,8 @@ class Manage extends Spine.Controller
         @main.soberDriver.active()
 
     @append @main
+
+    User.fetch()
 
   clicked: (e) ->
     e.preventDefault()
