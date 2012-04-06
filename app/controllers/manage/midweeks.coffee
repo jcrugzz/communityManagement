@@ -36,12 +36,27 @@ class MidWeeks extends Spine.Controller
     @html require('views/manage/tableHeader')()
     User.bind("refresh", @addAll)
 
+  sortArray: (a, b) =>
+    # Sort by priority descending and credits ascending
+    if a.priority > b.priority
+      return -1
+    if a.priority < b.priority
+      return 1
+    if a.midweekCredits < b.midweekCredits
+      return -1
+    if a.midweekCredits > b.midweekCredits
+      return 1
+    return 0
+
   addOne: (user) =>
     row = new MidWeekRow(user: user)
     @here.append(row.render().el)
 
   addAll: =>
-    User.each(@addOne)
+    users = User.select (user) ->
+      user.wdExempt == false
+    users.sort(@sortArray)
+    @addOne(user) for user in users
 
 
 module.exports = MidWeeks

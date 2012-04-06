@@ -4,9 +4,9 @@ Schema = mongoose.Schema
 Assignment = new Schema()
 
 Assignment.add(
-  name: {type: String, required: true}
-  type: {type: String, required: true}
-  day: {type: String, required: true, enum: ['Sunday', 'Tuesday', 'Thursday', 'Friday', 'Saturday']}
+  name: {type: String}
+  type: {type: String}
+  day: {type: String}
 )
 
 AssignmentRecord = new Schema()
@@ -14,6 +14,7 @@ AssignmentRecord = new Schema()
 AssignmentRecord.add
   users: [{type: Schema.ObjectId, ref: 'User'}]
   assignment: {type: Schema.ObjectId, ref: 'Assignment'}
+  complete: {type: Boolean, default: false}
   date: Date
 
 User = new Schema()
@@ -34,6 +35,7 @@ User.add(
   dishes: {type: Boolean, default: false}
   mealPlan: {type: Boolean, default: false}
   wdExempt: {type: Boolean, default: false}
+  newBro: {type: Boolean, default: false}
   soberPosition: {type: String}
   assignments: [Assignment]
 )

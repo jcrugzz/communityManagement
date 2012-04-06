@@ -10,16 +10,16 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a href="#">Heads</a>
+        <a id="heads" href="#">Heads</a>
       </li>
       <li>
-        <a href="#">Halls</a>
+        <a id="halls" href="#">Halls</a>
       </li>
       <li>
-        <a href="#">Chapter Room</a>
+        <a id="chapterRoom" href="#">Chapter Room</a>
       </li>
       <li>
-        <a href="#">LDE</a>
+        <a id="lde" href="#">LDE</a>
       </li>
     </ul>
   </div>

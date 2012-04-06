@@ -7,7 +7,8 @@ class User extends Spine.Model
     'workDetailCredits', 'kitchenCredits', 'midweekCredits',
     'soberCredits', 'bitchCredits', 'gmenCredits',
     'cook', 'dishes', 'mealPlan',
-    'wdExempt', 'soberPosition', 'assignments'
+    'wdExempt', 'soberPosition', 'assignments',
+    'newBro'
 
   @extend Spine.Model.Ajax
 

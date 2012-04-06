@@ -38,8 +38,6 @@ class Manage extends Spine.Controller
 
     @append @main
 
-    User.fetch()
-
   clicked: (e) ->
     e.preventDefault()
     @tabs.removeClass('active')

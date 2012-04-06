@@ -45,6 +45,7 @@ module.exports =
       user.dishes = req.body.dishes
       user.mealPlan = req.body.mealPlan
       user.wdExempt = req.body.wdExempt
+      user.newBro = req.body.newBro
       user.save (err, user) ->
         if err?
           console.log err
@@ -84,6 +85,23 @@ module.exports =
       res.render 'assignmentIndex',
         title: 'Assignment List',
         assignments: assignments
+
+  defaultAssignments: (req, res) ->
+    ass0 = new Assignment(name: 'Heads', type: 'MidWeek', day: 'Sunday')
+    ass1 = new Assignment(name: 'Heads', type: 'MidWeek', day: 'Tuesday')
+    ass2 = new Assignment(name: 'Halls', type: 'MidWeek', day: 'Tuesday')
+    ass3 = new Assignment(name: 'Heads', type: 'MidWeek', day: 'Thursday')
+    ass4 = new Assignment(name: 'Halls', type: 'MidWeek', day: 'Thursday')
+    ass5 = new Assignment(name: 'Heads', type: 'Work Detail', day: 'Saturday')
+    ass6 = new Assignment(name: 'Chapter Room', type: 'Work Detail', day: 'Saturday')
+    ass7 = new Assignment(name: 'Halls', type: 'Work Detail', day: 'Sunday')
+    ass8 = new Assignment(name: 'LDE', type: 'Work Detail', day: 'Sunday')
+    ass9 = new Assignment(name: 'Kitchen', type: 'Kitchen', day: 'Sunday')
+    ass10 = new Assignment(name: 'Sober Driver', type: 'Sober Position', day: 'Tuesday')
+    ass11 = new Assignment(name: 'Sober Driver', type: 'Sober Position', day: 'Thursday')
+    ass12 = new Assignment(name: 'Sober Driver', type: 'Sober Position', day: 'Friday')
+    ass13 = new Assignment(name: 'Sober Driver', type: 'Sober Position', day: 'Saturday')
+    ass14 = new Assignment(name: 'Bitch', type: 'Bitch', day: 'Tuesday')
 
   newAssignment: (req, res) ->
     res.render 'addAssignment',

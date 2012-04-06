@@ -40,6 +40,11 @@
       <input type="checkbox" name="wdExempt" value="<%= @wdExempt %>" init="<%= @wdExempt %>"/>
     </label>
 
+    <label for="newBro" class="checkbox">
+      <span>New Bro?</span>
+      <input type="checkbox" name="newBro" value="<%= @newBro %>" init="<%= @newBro %>"/>
+    </label>
+
     <label for="mealPlan" class="checkbox">
       <span>Meal Plan?</span>
       <input type="checkbox" name="mealPlan" value="<%= @mealPlan %>" init="<%= @mealPlan %>"/>

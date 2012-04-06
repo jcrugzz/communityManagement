@@ -42,9 +42,22 @@ class WorkDetails extends Spine.Controller
     row = new WorkDetailRow(user: user)
     @here.append(row.render().el)
 
+  sortArray: (a, b) =>
+    # Sort by priority descending and credits ascending
+    if a.priority > b.priority
+      return -1
+    if a.priority < b.priority
+      return 1
+    if a.workDetailCredits < b.workDetailCredits
+      return -1
+    if a.workDetailCredits > b.workDetailCredits
+      return 1
+    return 0
+
   addAll: =>
     users = User.select (user) ->
       user.wdExempt == false
+    users.sort(@sortArray)
     @addOne(user) for user in users
 
 
