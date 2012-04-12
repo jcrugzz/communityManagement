@@ -1,6 +1,13 @@
-<div class="page-header row">
-  <h1>Sign Ups</h1>
-  <p>Weekly Rotations</p>
+<div class="row">
+  <div class="page-header">
+    <h1>Sign Ups</h1>
+    <p>Weekly Rotations</p>
+  </div>
+</div>
+<div class="row">
+  <div class="center span4 offset8">
+    <button id="auto-assign" class="btn btn-inverse">Auto-Assign</button>
+  </div>
 </div>
 <div class="tabs row">
   <ul class="nav nav-tabs">

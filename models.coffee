@@ -6,7 +6,6 @@ Assignment = new Schema()
 Assignment.add(
   name: {type: String}
   type: {type: String}
-  day: {type: String}
 )
 
 AssignmentRecord = new Schema()
@@ -14,6 +13,7 @@ AssignmentRecord = new Schema()
 AssignmentRecord.add
   users: [{type: Schema.ObjectId, ref: 'User'}]
   assignment: {type: Schema.ObjectId, ref: 'Assignment'}
+  current: {type: Boolean, default: false}
   complete: {type: Boolean, default: false}
   date: Date
 

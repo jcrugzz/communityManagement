@@ -10,7 +10,7 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a id="heads" href="#">Heads</a>
+        <a id="Heads" href="#">Heads</a>
       </li>
       <li>
         <a id="halls" href="#">Halls</a>

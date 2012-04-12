@@ -12,6 +12,7 @@ class Manage extends Spine.Controller
 
   events:
     'click .tabs > ul > li > a': 'clicked'
+    'click #auto-assign': 'assign'
 
   constructor: ->
     super
@@ -45,6 +46,12 @@ class Manage extends Spine.Controller
     element.parent().addClass('active')
     id = element.parent().attr('id')
     @navigate("/manage/#{id}")
+
+  assign: (e) ->
+    e.preventDefault()
+
+
+
 
 
 

@@ -1,10 +1,13 @@
 Spine = require('spine')
+User  = require('models/user')
 
 class AssignmentRecord extends Spine.Model
   @configure 'AssignmentRecord', 'users',
     'assignment', 'date', 'complete'
 
-  @extends Spine.Model.Ajax
+  @extend Spine.Model.Ajax
+
+  #@belongsTo 'user', User
 
   @fromJSON: (objects) ->
     return unless objects
@@ -29,3 +32,5 @@ class AssignmentRecord extends Spine.Model
     atts._id = atts.id
     delete atts.id
     atts
+
+module.exports = AssignmentRecord

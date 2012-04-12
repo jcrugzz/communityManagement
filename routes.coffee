@@ -1,5 +1,6 @@
 User = require('./models').User
 Assignment = require('./models').Assignment
+AssignmentRecord = require('./models').AssignmentRecord
 
 module.exports =
 
@@ -78,30 +79,73 @@ module.exports =
           console.log(err)
           res.send(err)
 
+
+  # Assignment Record Routes
+  assignmentRecords: (req, res) ->
+    AssignmentRecord.find {}, (err, assignmentRecords) ->
+      res.send assignmentRecords
+
+  addRecord: (req, res) ->
+    console.log(req.body)
+    rec = new AssignmentRecord()
+    rec.users.push(req.body.userId)
+    rec.assignment = req.body.assId
+    rec.current = true
+
+
+
   # Assignment Routes
 
   assignmentIndex: (req, res) ->
     Assignment.find {}, (err, assignments) ->
-      res.render 'assignmentIndex',
-        title: 'Assignment List',
-        assignments: assignments
+      res.send assignments
+
+  removeAssignments: (req, res) ->
+    Assignment.find {}, (err, assignments) ->
+      count = 0
+      if err?
+        res.send err
+      else
+        for assignment in assignments
+          next = ->
+            if count == assignments.length
+              console.log 'count ' + count
+              console.log 'length ' + assignments.length
+              res.send 'Success'
+          assignment.remove (err) ->
+            if err?
+              res.send err
+            else
+              console.log
+              count++
+            next()
 
   defaultAssignments: (req, res) ->
-    ass0 = new Assignment(name: 'Heads', type: 'MidWeek', day: 'Sunday')
-    ass1 = new Assignment(name: 'Heads', type: 'MidWeek', day: 'Tuesday')
-    ass2 = new Assignment(name: 'Halls', type: 'MidWeek', day: 'Tuesday')
-    ass3 = new Assignment(name: 'Heads', type: 'MidWeek', day: 'Thursday')
-    ass4 = new Assignment(name: 'Halls', type: 'MidWeek', day: 'Thursday')
-    ass5 = new Assignment(name: 'Heads', type: 'Work Detail', day: 'Saturday')
-    ass6 = new Assignment(name: 'Chapter Room', type: 'Work Detail', day: 'Saturday')
-    ass7 = new Assignment(name: 'Halls', type: 'Work Detail', day: 'Sunday')
-    ass8 = new Assignment(name: 'LDE', type: 'Work Detail', day: 'Sunday')
-    ass9 = new Assignment(name: 'Kitchen', type: 'Kitchen', day: 'Sunday')
-    ass10 = new Assignment(name: 'Sober Driver', type: 'Sober Position', day: 'Tuesday')
-    ass11 = new Assignment(name: 'Sober Driver', type: 'Sober Position', day: 'Thursday')
-    ass12 = new Assignment(name: 'Sober Driver', type: 'Sober Position', day: 'Friday')
-    ass13 = new Assignment(name: 'Sober Driver', type: 'Sober Position', day: 'Saturday')
-    ass14 = new Assignment(name: 'Bitch', type: 'Bitch', day: 'Tuesday')
+    assignments = [ new Assignment(name: 'Heads', type: 'midWeek')
+                    new Assignment(name: 'Halls', type: 'midWeek')
+                    new Assignment(name: 'Heads', type: 'workDetail')
+                    new Assignment(name: 'Chapter Room', type: 'workDetail')
+                    new Assignment(name: 'Halls', type: 'workDetail')
+                    new Assignment(name: 'LDE', type: 'workDetail')
+                    new Assignment(name: 'Kitchen', type: 'workDetail')
+                    new Assignment(name: 'Sober Driver', type: 'soberPosition')
+                    new Assignment(name: 'Bitch', type: 'bitch')
+                    new Assignment(name: 'Sober Host', type: 'soberPosition')
+    ]
+    count = 0
+    for assignment in assignments
+      next = ->
+        if count == assignments.length
+          console.log 'count ' +count
+          console.log 'length ' + assignments.length
+          res.send 'Success'
+      assignment.save (err, assignment) ->
+        if err?
+            res.send err
+        else
+          count++
+        next()
+
 
   newAssignment: (req, res) ->
     res.render 'addAssignment',

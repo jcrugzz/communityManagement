@@ -1,4 +1,5 @@
 Spine = require('spine')
+AssignmentRecord = require('models/assignmentRecord')
 $     = Spine.$
 
 class User extends Spine.Model
@@ -11,6 +12,8 @@ class User extends Spine.Model
     'newBro'
 
   @extend Spine.Model.Ajax
+
+  #@hasMany 'assignments', AssignmentRecord
 
   fromForm: (form) ->
     result = {}
@@ -50,6 +53,114 @@ class User extends Spine.Model
     atts._id = atts.id
     delete atts.id
     atts
+
+  # User Sorts
+
+  @gmenSort: (a, b) ->
+    # Sort by priority descending and credits ascending
+    if a.priority > b.priority
+      return -1
+    if a.priority < b.priority
+      return 1
+    if a.gmenCredits < b.gmenCredits
+      return -1
+    if a.gmenCredits > b.gmenCredits
+      return 1
+    return 0
+
+  @soberSort: (a, b) ->
+    # Sort by priority descending and credits ascending
+    if a.priority > b.priority
+      return -1
+    if a.priority < b.priority
+      return 1
+    if a.soberCredits < b.soberCredits
+      return -1
+    if a.soberCredits > b.soberCredits
+      return 1
+    return 0
+
+  @bitchSort: (a, b) ->
+    # Sort by priority descending and credits ascending
+    if a.priority > b.priority
+      return -1
+    if a.priority < b.priority
+      return 1
+    if a.bitchCredits < b.bitchCredits
+      return -1
+    if a.bitchCredits > b.bitchCredits
+      return 1
+    return 0
+
+  @midweekSort: (a, b) ->
+    # Sort by priority descending and credits ascending
+    if a.priority > b.priority
+      return -1
+    if a.priority < b.priority
+      return 1
+    if a.midweekCredits < b.midweekCredits
+      return -1
+    if a.midweekCredits > b.midweekCredits
+      return 1
+    return 0
+
+  @kitchenSort: (a, b) ->
+    # Sort by priority descending and credits ascending
+    if a.priority > b.priority
+      return -1
+    if a.priority < b.priority
+      return 1
+    if a.kitchenCredits < b.kitchenCredits
+      return -1
+    if a.kitchenCredits > b.kitchenCredits
+      return 1
+    return 0
+
+  @workDetailSort: (a, b) ->
+    # Sort by priority descending and credits ascending
+    if a.priority > b.priority
+      return -1
+    if a.priority < b.priority
+      return 1
+    if a.workDetailCredits < b.workDetailCredits
+      return -1
+    if a.workDetailCredits > b.workDetailCredits
+      return 1
+    return 0
+
+  #User Sets
+
+  @workDetailUsers: ->
+    users = @select (user) ->
+      user.wdExempt == false
+
+  @kitchenUsers: ->
+    users = @select (user) ->
+      if user.dishes == true or user.wdExempt == true
+        return false
+      return true
+
+  @midweekUsers: ->
+    users = @select (user) ->
+      user.wdExempt == false
+
+  @bitchUsers: ->
+    users = @select (user) ->
+      if user.cook or not user.mealPlan
+        return false
+      return true
+
+  @gmenUsers: ->
+    users = @select (user) ->
+      user.newBro
+
+  @soberHostUsers: ->
+    users = @select (user) ->
+      user.soberPosition == "Sober Host"
+
+  @soberDriverUsers: ->
+    users = @select (user) ->
+      user.soberPosition == "Sober Driver"
 
 
 module.exports = User

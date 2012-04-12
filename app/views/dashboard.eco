@@ -2,3 +2,13 @@
   <h1>Dashboard</h1>
   <p>Welcome! Here is a brief list of this week's Assignents</p>
 </div>
+<div class="row">
+  <div class="span4">
+    <h2 class="center">Work Details</h2>
+  </div>
+  <div class="span4">
+    <h2 class="center">Kitchen</h2>
+  </div>
+  <div class="span4">
+    <h2 class="center">Bitch<h2>
+  </div>

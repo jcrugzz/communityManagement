@@ -5,3 +5,7 @@
 .stack > *:not(.active) {
   display: none
 }
+
+.center {
+  text-align: center
+}

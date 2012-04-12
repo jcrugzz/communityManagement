@@ -15,7 +15,13 @@ app.configure "development", ->
   )
   proxy = new httpProxy.RoutingProxy
 
-  app.get '/application.(css|js)'
+  hemProxy = (req, res) ->
+    proxy.proxyRequest(req, res, {
+      host: 'localhost',
+      port: 9294
+    })
+
+  app.get '/application.(css|js)', hemProxy
 
 app.configure "production", ->
   mongoose.connect 'mongodb://localhost/communityManagementProd'
@@ -52,7 +58,13 @@ app.get '/users/:id/edit', routes.editUser
 app.put '/users/:id', routes.updateUser
 app.del '/users/:id', routes.deleteUser
 
+# AssignmentRecord Routes
+app.post '/assignmentRecords', routes.addRecord
+app.get '/assignmentRecords', routes.assignmentRecords
+
 # Assignment Routes
+app.get '/addDefaultAssignments', routes.defaultAssignments
+app.get '/removeAssignments', routes.removeAssignments
 app.get '/assignments', routes.assignmentIndex
 app.get '/assignments/new', routes.newAssignment
 app.post '/assignments/new', routes.addAssignment

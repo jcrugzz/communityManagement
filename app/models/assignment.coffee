@@ -3,7 +3,7 @@ Spine = require('spine')
 class Assignment extends Spine.Model
   @configure 'Assignment', 'name', 'type'
 
-  @extends Spine.Model.Ajax
+  @extend Spine.Model.Ajax
 
   @fromJSON: (objects) ->
     return unless objects

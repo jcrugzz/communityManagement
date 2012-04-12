@@ -1,6 +1,7 @@
 Spine = require('spine')
 User = require('models/user')
-#Assignment = require('models/assignment')
+Assignment = require('models/assignment')
+AssignmentRecord = require('models/assignmentRecord')
 $     = Spine.$
 
 
@@ -27,7 +28,7 @@ class WorkDetailRow extends Spine.Controller
 
   click: (e) ->
     e.preventDefault()
-
+    element = $(e.target)
 
 class WorkDetails extends Spine.Controller
   elements:
@@ -42,22 +43,9 @@ class WorkDetails extends Spine.Controller
     row = new WorkDetailRow(user: user)
     @here.append(row.render().el)
 
-  sortArray: (a, b) =>
-    # Sort by priority descending and credits ascending
-    if a.priority > b.priority
-      return -1
-    if a.priority < b.priority
-      return 1
-    if a.workDetailCredits < b.workDetailCredits
-      return -1
-    if a.workDetailCredits > b.workDetailCredits
-      return 1
-    return 0
-
   addAll: =>
-    users = User.select (user) ->
-      user.wdExempt == false
-    users.sort(@sortArray)
+    users = User.workDetailUsers()
+    users.sort(User.workDetailSort)
     @addOne(user) for user in users
 
 
