@@ -128,6 +128,48 @@ class User extends Spine.Model
       return 1
     return 0
 
+  # Filter's used for one set in order to correctly have all
+  # assignments for auto-assign
+
+  @workDetailFilter: (users) ->
+    filter = (user) ->
+      user.wdExempt == false
+    result = user for user in users when filter(user)
+
+  @kitchenFilter: (users, ids) ->
+    filter = (user, ids) ->
+      if user.dishes == true or user.wdExempt == true or ids[user.id]
+        return false
+      return true
+    result = user for user in users when filter(user, ids)
+
+  @midweekFilter: (users) ->
+    filter = (user) ->
+      user.wdExempt == false
+    result = user for user in users when filter(user)
+
+  @bitchFilter: (users) ->
+    filter = (user) ->
+      if user.dishes == true or user.wdExempt == true
+        return false
+      return true
+    result = user for user in users when filter(user)
+
+  @gmenFilter: (users) ->
+    filter = (user) ->
+      user.newBro
+    result = user for user in users when filter(user)
+
+  @soberDriverFilter: (users) ->
+    filter = (user) ->
+      user.soberPosition == "Sober Driver"
+    result = user for user in users when filter(user)
+
+  @soberHostFilter: (users) ->
+    filter = (user) ->
+      user.soberPosition == "Sober Host"
+    result = user for user in users when filter(user)
+
   #User Sets
 
   @workDetailUsers: ->

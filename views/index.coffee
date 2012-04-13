@@ -4,6 +4,7 @@ html ->
     title "#{@title or 'Untitled'}"
     link rel: 'stylesheet', href: '/css/bootstrap.css'
     link rel: 'stylesheet', href: '/css/index.css'
+    script type: 'text/javascript', src: '/js/async.js'
     script type: 'text/javascript', src: '/application.js'
     coffeescript ->
       jQuery = require("jqueryify")
