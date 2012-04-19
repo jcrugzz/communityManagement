@@ -54,7 +54,8 @@ class Manage extends Spine.Controller
     e.preventDefault()
     async.waterfall [
       (callback) ->
-        users = User.all()
+        users = User.toJSON()
+        console.log users
         wdUsers = User.workDetailFilter(users)
         wdUsers.sort(User.workDetailSort)
         assignees = wdUsers[0...8]
@@ -76,7 +77,7 @@ class Manage extends Spine.Controller
           if count % 2 == 0 and count != 0
             assNum++
           count++
-          assRecs[assignments[assNum].id] = combine(a)
+          assRecs[assignments[assNum].id] = combine(a.id)
           a.assignments.push(assignments[assNum].id)
           done()
       (users, assRecs, prevAssignments, callback) ->
@@ -94,34 +95,35 @@ class Manage extends Spine.Controller
         kitchenUsers.sort(User.kitchenSort)
         assignment = Assignment.findByAttribute("name", "Kitchen")
         assignees = kitchenUsers[0...3]
-        assRecs[assignment.id] = assignees
+        assRecs[assignment.id] = []
         count = 0
         for a in assignees
           done = ->
             if count == assignees.length
               callback(null, users, assRecs)
           count++
+          assRecs[assignment.id].push(a.id)
           a.assignments.push(assignment.id)
           done()
       (users, assRecs, callback) ->
         bitchUsers = User.bitchFilter(users)
         bitchUsers.sort(User.bitchSort)
-        assignments = Assignment.findAllByAttribute("name", "Bitch")
+        assignments = Assignment.findAllByAttribute("type", "bitch")
         assignees = bitchUsers[0...5]
         count = 0
         for a in assignees
           done = ->
             if count == assignees.length
               callback(null, users, assRecs)
-          count++
-          assRecs[assignments[count].id] = a
+          assRecs[assignments[count].id] = a.id
           a.assignments.push(assignments[count].id)
+          count++
+
           done()
       (users, assRecs, callback) ->
         midweekUsers = User.midweekFilter(users)
         midweekUsers.sort(User.midweekSort)
-        assignments = Assignments.select (assignment) ->
-          assignment.type == "midWeek"
+        assignments = Assignment.findAllByAttribute("type", "midWeek")
         assignees = midweekUsers[0...10]
         count = 0
         assNum = 0
@@ -137,13 +139,107 @@ class Manage extends Spine.Controller
           if count % 2 == 0 and count != 0
             assNum++
           count++
-          assRecs[assignments[assNum].id] = combine(a)
+          assRecs[assignments[assNum].id] = combine(a.id)
           a.assignments.push(assignments[assNum].id)
           done()
       (users, assRecs, callback) ->
+        gmenUsers = User.gmenFilter(users)
+        gmenUsers.sort(User.gmenSort)
+        assignment = Assignment.findByAttribute("type", "gmen")
+        assignees = gmenUsers[0...2]
+        count = 0
+        for a in assignees
+          combine = (user) ->
+            if assRecs[assignment.id]
+              [assRecs[assignment.id], user]
+            else
+              user
+          done = ->
+            if count == assignees.length
+              callback(null, users, assRecs)
+          count++
+          assRecs[assignment.id] = combine(a.id)
+          a.assignments.push(assignment.id)
+          done()
+      (users, assRecs, callback) ->
+        soberDriverUsers = User.soberDriverFilter(users)
+        soberDriverUsers.sort(User.soberSort)
+        assignments = Assignment.findAllByAttribute("name", "Sober Driver")
+        assignees = soberDriverUsers[0...4]
+        count = 0
+        for a in assignees
+          combine = (user) ->
+            if assRecs[assignments[count].id]
+              [assRecs[assignments[count].id], user]
+            else
+              user
+          done = ->
+            if count == assignees.length
+              callback(null, users, assRecs)
+          assRecs[assignments[count].id] = combine(a.id)
+          a.assignments.push(assignments[count].id)
+          count++
+          done()
+
+    ], (err, users, assRecs) ->
+      console.log users
+      console.log assRecs
+      assignmentRecords = []
+      for key, val of assRecs
+        assignment = Assignment.find(key)
+        day = ""
+        day = assignment.day if assignment?.day?
+        findDate = (dayNum) ->
+          date = new Date()
+          curDayNum = date.getDay()
+          curDay = date.getDate()
+          if curDayNum == 6
+            curDay++
+          if dayNum != 0
+            curDay += dayNum
+          else
+            curDay += 7
+          date.setDate(curDay)
+          date.toDateString()
+
+        dateSwitch = ->
+          switch day
+            when "Monday" then findDate(1)
+            when "Tuesday" then findDate(2)
+            when "Wednesday" then findDate(3)
+            when "Thursday" then findDate(4)
+            when "Friday" then findDate(5)
+            when "Saturday" then findDate(6)
+            when "Sunday" then findDate(0)
+            else
+              null
+
+        date = dateSwitch()
+        if date != null
+          assignmentRecords.push(new AssignmentRecord(users: val, current: "1", assignment: key, date: date))
+        else
+          assignmentRecords.push(new AssignmentRecord(users: val, current: "1", assignment: key))
+      console.log assignmentRecords
+      success = (data, status, xhr) ->
+        User.trigger('ajaxSuccess', null, status, xhr)
+        User.fetch()
+        AssignmentRecord.trigger('ajaxSuccess', null, status, xhr)
+        AssignmentRecord.fetch()
+      error = (data, statusText, xhr) ->
+        User.trigger('ajaxError', null, statusText, xhr)
+        AssignmentRecord.trigger('ajaxError', null, statusText, xhr)
+      console.log JSON.stringify(users)
+      console.log JSON.stringify(assignmentRecords)
+      $.ajax(
+        type: 'POST'
+        data:
+          users: JSON.stringify(users)
+          assignmentRecords: JSON.stringify(assignmentRecords)
+        url: "/autoAssign"
+      ).success(success)
+      .error(error)
 
 
-    ], (err, result) ->
-      console.log result
+
 
 module.exports = Manage

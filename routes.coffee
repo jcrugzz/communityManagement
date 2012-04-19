@@ -1,11 +1,68 @@
 User = require('./models').User
 Assignment = require('./models').Assignment
 AssignmentRecord = require('./models').AssignmentRecord
+async = require('async')
 
 module.exports =
 
   index: (req, res) ->
     res.render "index"
+
+  autoAssign: (req, res) ->
+    console.log req.body
+    users = JSON.parse(req.body.users)
+    assignmentRecords = JSON.parse(req.body.assignmentRecords)
+    async.parallel
+      users: (callback) ->
+        count = 0
+        for u in users
+          done = ->
+            if count == users.length
+              User.find {}, (err, nUsers) ->
+                if not err?
+                  callback(null, nUsers)
+                else
+                  callback(err, nUsers)
+          User.findById u._id, (err, user) ->
+            innerCount = 0
+            for assignment in u.assignments
+              preSave = ->
+                if innerCount == u.assignments.length
+                  user.save (err, nUser) ->
+                    if not err?
+                      console.log nUser
+                      count++
+                      done()
+                    else
+                      callback(err, nUser)
+              user.assignments.push(ass)
+              innerCount++
+              preSave()
+
+      assignmentRecords: (callback) ->
+        count = 0
+        for rec in assignmentRecords
+          done = ->
+            if count == assignmentRecords.length
+              AssignmentRecord.find {}, (err, nAssignmentRecords) ->
+                if not err?
+                  callback(null, nAssignmentRecords)
+                else
+                  callback(err, nAssignmentRecords)
+          new AssignmentRecord(rec).save (err, assignmentRecord) ->
+            if not err?
+              #console.log assignmentRecord
+              count++
+              done()
+            else
+              callback(err, assignmentRecord)
+      (err, results) ->
+        if not err?
+          console.log results
+          res.send results
+        else
+          console.log err
+          res.send err
 
   # User Routes
 
@@ -92,6 +149,24 @@ module.exports =
     rec.assignment = req.body.assId
     rec.current = true
 
+  removeAssignmentRecords: (req, res) ->
+    AssignmentRecord.find {}, (err, assignmentRecords) ->
+      count = 0
+      if err?
+        res.send err
+      else
+        for rec in assignmentRecords
+          done = ->
+            if count == assignmentRecords.length
+              console.log 'count ' + count
+              console.log 'length ' + assignmentRecords.length
+              res.send 'Success'
+          rec.remove (err) ->
+            if err?
+              res.send err
+            else
+              count++
+            done()
 
 
   # Assignment Routes
@@ -107,7 +182,7 @@ module.exports =
         res.send err
       else
         for assignment in assignments
-          next = ->
+          done = ->
             if count == assignments.length
               console.log 'count ' + count
               console.log 'length ' + assignments.length
@@ -116,9 +191,8 @@ module.exports =
             if err?
               res.send err
             else
-              console.log
               count++
-            next()
+            done()
 
   defaultAssignments: (req, res) ->
     assignments = [ new Assignment(name: 'Heads', type: 'midWeek', day: "Sunday")
@@ -137,9 +211,11 @@ module.exports =
                     new Assignment(name: 'Sober Driver', type: 'soberPosition', day: "Saturday")
                     new Assignment(name: 'Bitch', type: 'bitch', day: "Monday")
                     new Assignment(name: 'Bitch', type: 'bitch', day: "Tuesday")
+                    new Assignment(name: 'Bitch', type: 'bitch', day: "Wednesday")
                     new Assignment(name: 'Bitch', type: 'bitch', day: "Thursday")
                     new Assignment(name: 'Bitch', type: 'bitch', day: "Sunday")
                     new Assignment(name: 'Sober Host', type: 'soberPosition')
+                    new Assignment(name: 'GMen', type: 'gmen')
     ]
     count = 0
     for assignment in assignments
@@ -162,10 +238,10 @@ module.exports =
 
   addAssignment: (req, res) ->
     console.log(req.body)
-    new Assignment(req.body.assignment).save (err, assignment) ->
+    new Assignment(req.body).save (err, assignment) ->
       console.log(err)
       console.log(assignment)
-      res.redirect '/assignments'
+      res.send assignment
 
   editAssignment: (req, res) ->
     Assignment.findById req.params.id, (err, assignment) ->
