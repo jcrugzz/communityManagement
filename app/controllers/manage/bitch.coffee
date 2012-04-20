@@ -17,7 +17,7 @@ class BitchRow extends Spine.Controller
   render: (user) =>
     @user = user if user
 
-    @html(@template(@user))
+    @html @template(@user)
     @
 
   template: (user) ->

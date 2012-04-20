@@ -19,7 +19,7 @@ class Manage extends Spine.Controller
   constructor: ->
     super
 
-    @html require('views/manage.tabs')()
+    @render()
 
     @main = new Main
 
@@ -40,6 +40,9 @@ class Manage extends Spine.Controller
         @main.soberDriver.active()
 
     @append @main
+
+  render: ->
+     @html require('views/manage.tabs')()
 
   clicked: (e) ->
     e.preventDefault()
@@ -77,8 +80,8 @@ class Manage extends Spine.Controller
           if count % 2 == 0 and count != 0
             assNum++
           count++
-          assRecs[assignments[assNum].id] = combine(a.id)
-          a.assignments.push(assignments[assNum].id)
+          assRecs[assignments[assNum].id] = combine(a)
+          a.assignments.push(assignments[assNum])
           done()
       (users, assRecs, prevAssignments, callback) ->
         # Ghetto way of finding Ids of assignments on same day
@@ -102,8 +105,8 @@ class Manage extends Spine.Controller
             if count == assignees.length
               callback(null, users, assRecs)
           count++
-          assRecs[assignment.id].push(a.id)
-          a.assignments.push(assignment.id)
+          assRecs[assignment.id].push(a)
+          a.assignments.push(assignment)
           done()
       (users, assRecs, callback) ->
         bitchUsers = User.bitchFilter(users)
@@ -115,8 +118,8 @@ class Manage extends Spine.Controller
           done = ->
             if count == assignees.length
               callback(null, users, assRecs)
-          assRecs[assignments[count].id] = a.id
-          a.assignments.push(assignments[count].id)
+          assRecs[assignments[count].id] = a
+          a.assignments.push(assignments[count])
           count++
 
           done()
@@ -139,8 +142,8 @@ class Manage extends Spine.Controller
           if count % 2 == 0 and count != 0
             assNum++
           count++
-          assRecs[assignments[assNum].id] = combine(a.id)
-          a.assignments.push(assignments[assNum].id)
+          assRecs[assignments[assNum].id] = combine(a)
+          a.assignments.push(assignments[assNum])
           done()
       (users, assRecs, callback) ->
         gmenUsers = User.gmenFilter(users)
@@ -158,8 +161,8 @@ class Manage extends Spine.Controller
             if count == assignees.length
               callback(null, users, assRecs)
           count++
-          assRecs[assignment.id] = combine(a.id)
-          a.assignments.push(assignment.id)
+          assRecs[assignment.id] = combine(a)
+          a.assignments.push(assignment)
           done()
       (users, assRecs, callback) ->
         soberDriverUsers = User.soberDriverFilter(users)
@@ -176,8 +179,8 @@ class Manage extends Spine.Controller
           done = ->
             if count == assignees.length
               callback(null, users, assRecs)
-          assRecs[assignments[count].id] = combine(a.id)
-          a.assignments.push(assignments[count].id)
+          assRecs[assignments[count].id] = combine(a)
+          a.assignments.push(assignments[count])
           count++
           done()
 
@@ -216,15 +219,15 @@ class Manage extends Spine.Controller
 
         date = dateSwitch()
         if date != null
-          assignmentRecords.push(new AssignmentRecord(users: val, current: "1", assignment: key, date: date))
+          assignmentRecords.push(new AssignmentRecord(users: val, current: true, assignment: [assignment], date: date))
         else
-          assignmentRecords.push(new AssignmentRecord(users: val, current: "1", assignment: key))
+          assignmentRecords.push(new AssignmentRecord(users: val, current: true, assignment: [assignment]))
       console.log assignmentRecords
       success = (data, status, xhr) ->
         User.trigger('ajaxSuccess', null, status, xhr)
-        User.fetch()
+        User.trigger('refresh')
         AssignmentRecord.trigger('ajaxSuccess', null, status, xhr)
-        AssignmentRecord.fetch()
+        AssignmentRecord.trigger('refresh')
       error = (data, statusText, xhr) ->
         User.trigger('ajaxError', null, statusText, xhr)
         AssignmentRecord.trigger('ajaxError', null, statusText, xhr)

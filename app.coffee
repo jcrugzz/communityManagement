@@ -61,7 +61,8 @@ app.post '/assignmentRecords', routes.addRecord
 app.get '/assignmentRecords', routes.assignmentRecords
 app.get '/removeAssignmentRecords', routes.removeAssignmentRecords
 
-# Assignment Routes for database adjustment purposes
+# Routes for database adjustment purposes
+app.get '/removeUserAssignments', routes.removeUserAssignments
 app.get '/addDefaultAssignments', routes.defaultAssignments
 app.get '/removeAssignments', routes.removeAssignments
 app.get '/addAssignment', routes.addAssignment

@@ -11,6 +11,7 @@ module.exports =
   autoAssign: (req, res) ->
     console.log req.body
     users = JSON.parse(req.body.users)
+    #console.log users
     assignmentRecords = JSON.parse(req.body.assignmentRecords)
     async.parallel
       users: (callback) ->
@@ -23,25 +24,31 @@ module.exports =
                   callback(null, nUsers)
                 else
                   callback(err, nUsers)
-          User.findById u._id, (err, user) ->
-            innerCount = 0
-            for assignment in u.assignments
-              preSave = ->
-                if innerCount == u.assignments.length
-                  user.save (err, nUser) ->
-                    if not err?
-                      console.log nUser
-                      count++
-                      done()
-                    else
-                      callback(err, nUser)
-              user.assignments.push(ass)
-              innerCount++
-              preSave()
+          update = (u) ->
+            User.findById u._id, (err, user) ->
+              console.log u
+              async.forEach(u.assignments,
+              (item, call) ->
+                user.assignments.push(item)
+                #console.log user.assignments
+                call(null)
+              , (err) ->
+                user.save (err, nUser) ->
+                  if not err?
+                    count++
+                    done()
+                  else
+                    callback(err, nUser)
+              )
+          if u.assignments.length != 0
+            update(u)
+          else
+            count++
 
       assignmentRecords: (callback) ->
         count = 0
         for rec in assignmentRecords
+          console.log rec
           done = ->
             if count == assignmentRecords.length
               AssignmentRecord.find {}, (err, nAssignmentRecords) ->
@@ -58,7 +65,7 @@ module.exports =
               callback(err, assignmentRecord)
       (err, results) ->
         if not err?
-          console.log results
+          #console.log results
           res.send results
         else
           console.log err
@@ -87,6 +94,22 @@ module.exports =
       res.render 'editUser',
         user: user
         title: 'Edit User'
+
+  removeUserAssignments: (req, res) ->
+    User.find {}, (err, users) ->
+      if not err?
+        async.forEach(users,
+          (user, callback) ->
+            console.log user
+            user.assignments = []
+            user.save (err, user) ->
+              callback(err)
+          , (err) ->
+            if not err?
+              res.send 'Success'
+        )
+      else
+        res.send err
 
   updateUser: (req, res) ->
    User.findById req.params.id, (err, user) ->

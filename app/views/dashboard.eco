@@ -3,12 +3,24 @@
   <p>Welcome! Here is a brief list of this week's Assignents</p>
 </div>
 <div class="row">
-  <div class="span4">
+  <div class="workDetail span4">
     <h2 class="center">Work Details</h2>
   </div>
-  <div class="span4">
+  <div class="kitchen span4">
     <h2 class="center">Kitchen</h2>
   </div>
-  <div class="span4">
+  <div class="bitch span4">
     <h2 class="center">Bitch<h2>
   </div>
+</div>
+<div class="row">
+  <div class="midweeks span4">
+    <h2 class="center">MidWeek</h2>
+  </div>
+  <div class="gmen span4">
+    <h2 class="center">G Men</h2>
+  </div>
+  <div class="soberDriver span4">
+    <h2 class="center">Sober Driver</h2>
+  </div>
+</div>

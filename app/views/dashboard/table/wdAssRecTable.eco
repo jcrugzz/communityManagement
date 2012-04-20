@@ -1,0 +1,14 @@
+<table class="table table-striped ">
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th>Assignment</th>
+      <th>Bro</th>
+      <th>Late</th>
+      <th>Missing</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
