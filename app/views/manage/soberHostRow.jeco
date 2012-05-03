@@ -1,7 +1,21 @@
 <td><%= @priority %></td>
 <td><%= @firstName + ' ' + @lastName %></td>
 <td><%= @soberCredits %></td>
-<td><%= @assignments %></td>
+<td>
+  <% if @assignments.length: %>
+    <% for ass in @assignments: %>
+      <% if ass.type == "midWeek": %>
+        <h5><%= ass.day + " " + ass.name + " Mid Week"  %></h5>
+      <% else if ass.type == "workDetail": %>
+        <h5><%= ass.name + " Work Detail"  %></h5>
+      <% else if ass.day: %>
+        <h5><%= ass.day + " " + ass.name %></h5>
+      <% end %>
+    <% end %>
+  <% else: %>
+    <h5>None</h5>
+  <% end %>
+</td>
 <td>
   <a class="btn" href="#">
     Assign

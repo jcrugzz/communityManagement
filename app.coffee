@@ -46,6 +46,8 @@ app.get "/", routes.index
 
 # Custom
 app.post "/autoAssign", routes.autoAssign
+app.post '/checkOff', routes.checkOff
+app.post '/assign', routes.assign
 
 # User Routes
 app.get '/users', routes.userIndex
@@ -67,6 +69,7 @@ app.get '/addDefaultAssignments', routes.defaultAssignments
 app.get '/removeAssignments', routes.removeAssignments
 app.get '/addAssignment', routes.addAssignment
 app.get '/deleteAssignment', routes.deleteAssignment
+app.get '/updateAssignment', routes.updateAssignment
 
 # Rest assignment routes if ever needed
 app.get '/assignments', routes.assignmentIndex

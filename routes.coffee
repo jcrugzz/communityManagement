@@ -8,6 +8,63 @@ module.exports =
   index: (req, res) ->
     res.render "index"
 
+  assign: (req, res) ->
+    user = JSON.parse(req.body.user)
+    assignment = JSON.parse(req.body.assignment)
+    console.log user
+    async.parallel
+      user: (callback) ->
+        User.findById user._id, (err, u) ->
+          u.assignments = user.assignments
+          u.save (err, _u) ->
+            if not err?
+              callback(null, _u)
+      assignmentRecord: (callback) ->
+        day = assignment.day if assignment.day?
+        findDate = (dayNum) ->
+          date = new Date()
+          curDayNum = date.getDay()
+          curDay = date.getDate()
+          if curDayNum == 6
+            curDay++
+          if dayNum != 0
+            curDay += dayNum
+          else
+            curDay += 7
+          date.setDate(curDay)
+          date.toDateString()
+
+        dateSwitch = ->
+          switch day
+            when "Monday" then findDate(1)
+            when "Tuesday" then findDate(2)
+            when "Wednesday" then findDate(3)
+            when "Thursday" then findDate(4)
+            when "Friday" then findDate(5)
+            when "Saturday" then findDate(6)
+            when "Sunday" then findDate(0)
+            else
+              null
+
+        assRec = new AssignmentRecord()
+        assRec.users.push(user)
+        assRec.assignment = [assignment]
+        assRec.current = true
+        assRec.complete = false
+        assRec.date = dateSwitch()
+        assRec.save (err, rec) ->
+          if not err?
+            callback(null, rec)
+          else
+            callback(err, rec)
+
+      (err, results) ->
+        if not err?
+          res.send results
+        else
+          res.send err
+
+
   autoAssign: (req, res) ->
     console.log req.body
     users = JSON.parse(req.body.users)
@@ -71,6 +128,36 @@ module.exports =
           console.log err
           res.send err
 
+  checkOff: (req, res) ->
+    #console.log req.body
+    AssignmentRecord.findById req.body.id, (err, assRec) ->
+      assRec.current = false
+      assRec.complete = true
+      User.find(
+        'assignments._id': assRec.assignment[0]._id
+      , (err, users) ->
+        if not err?
+          console.log users
+          async.forEach(users, (user, callback) ->
+            user.assignments.id(assRec.assignment[0]._id).remove()
+
+            user.save (e) ->
+              callback(e)
+          , (err) ->
+            if not err?
+              assRec.save (err, aRec) ->
+                if not err?
+                  res.send assRec
+                else
+                  res.send err
+            else
+              res.send err
+          )
+        else
+          res.send err
+      )
+
+
   # User Routes
 
   userIndex: (req, res) ->
@@ -127,6 +214,7 @@ module.exports =
       user.mealPlan = req.body.mealPlan
       user.wdExempt = req.body.wdExempt
       user.newBro = req.body.newBro
+      user.assignments = req.body.assignments
       user.save (err, user) ->
         if err?
           console.log err
@@ -227,7 +315,7 @@ module.exports =
                     new Assignment(name: 'Chapter Room', type: 'workDetail', day: "Saturday")
                     new Assignment(name: 'Halls', type: 'workDetail', day: "Sunday")
                     new Assignment(name: 'LDE', type: 'workDetail', day: "Sunday")
-                    new Assignment(name: 'Kitchen', type: 'workDetail', "Sunday")
+                    new Assignment(name: 'Kitchen', type: 'workDetail', day:"Sunday")
                     new Assignment(name: 'Sober Driver', type: 'soberPosition', day: "Tuesday")
                     new Assignment(name: 'Sober Driver', type: 'soberPosition', day: "Thursday")
                     new Assignment(name: 'Sober Driver', type: 'soberPosition', day: "Friday")
@@ -278,19 +366,19 @@ module.exports =
     console.log assignment
     if not err? and assignment?
       console.log req.body.assignment
-      assignment.name = req.body.assignment
+      assignment.day = req.body.day
+      assignment.name = req.body.name
+      assignment.type = req.body.type
       assignment.save (err, assignment) ->
-        if err?
-          console.log err
-          console.log 'Failed Update'
+        if not err?
+          res.send assignment
 
         else
-          console.log 'Successful Update'
-
-        res.redirect '/assignments'
+          console.log err
+          res.send 'Failed Update'
     else
       console.log err
-      console.log 'User not Found'
+      res.send 'Assignment not Found'
 
   viewAssignment: (req, res) ->
     Assignment.findById req.params.id, (err, assignment) ->

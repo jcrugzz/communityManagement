@@ -1,9 +1,0 @@
-<td><%= @assignment[0].day %></td>
-<td><%= @assignment[0].name %></td>
-<td>
-  <%= @users[0].firstName + @users[0].lastName %>
-  <%= @users[1].firstName + @users[1].lastName %>
-</td>
-<td><input type="checkbox" name="late"></td>
-<td><input type="checkbox" name="missing"></td>
-<td><button class="checkOff btn">Check Off</button></td>

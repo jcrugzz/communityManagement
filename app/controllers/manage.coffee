@@ -118,7 +118,7 @@ class Manage extends Spine.Controller
           done = ->
             if count == assignees.length
               callback(null, users, assRecs)
-          assRecs[assignments[count].id] = a
+          assRecs[assignments[count].id] = [a]
           a.assignments.push(assignments[count])
           count++
 
@@ -175,7 +175,7 @@ class Manage extends Spine.Controller
             if assRecs[assignments[count].id]
               [assRecs[assignments[count].id], user]
             else
-              user
+              [user]
           done = ->
             if count == assignees.length
               callback(null, users, assRecs)
@@ -225,9 +225,10 @@ class Manage extends Spine.Controller
       console.log assignmentRecords
       success = (data, status, xhr) ->
         User.trigger('ajaxSuccess', null, status, xhr)
-        User.trigger('refresh')
         AssignmentRecord.trigger('ajaxSuccess', null, status, xhr)
-        AssignmentRecord.trigger('refresh')
+        AssignmentRecord.refresh(data.assignmentRecords, {clear: true})
+        User.refresh(data.users, {clear: true})
+        User.trigger("refresh")
       error = (data, statusText, xhr) ->
         User.trigger('ajaxError', null, statusText, xhr)
         AssignmentRecord.trigger('ajaxError', null, statusText, xhr)

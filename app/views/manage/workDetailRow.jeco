@@ -8,8 +8,8 @@
         <h5><%= ass.day + " " + ass.name + " Mid Week"  %></h5>
       <% else if ass.type == "workDetail": %>
         <h5><%= ass.name + " Work Detail"  %></h5>
-      <% else: %>
-        <h5><%= ass.name %></h5>
+      <% else if ass.day: %>
+        <h5><%= ass.day + " " + ass.name %></h5>
       <% end %>
     <% end %>
   <% else: %>
@@ -17,24 +17,29 @@
   <% end %>
 </td>
 <td>
-  <div class="btn-group">
+  <div class="assign btn-group">
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
       Assign
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a id="Heads" href="#">Heads</a>
+        <a name="Heads" type="workDetail" href="#">Heads</a>
       </li>
       <li>
-        <a id="halls" href="#">Halls</a>
+        <a name="Halls" type="workDetail" href="#">Halls</a>
       </li>
       <li>
-        <a id="chapterRoom" href="#">Chapter Room</a>
+        <a name="Chapter Room" type="workDetail" href="#">Chapter Room</a>
       </li>
       <li>
-        <a id="lde" href="#">LDE</a>
+        <a name="LDE" type="workDetail" href="#">LDE</a>
       </li>
     </ul>
+  </div>
+  <div class="unassign btn-group">
+    <a class="btn" href="#">
+      Unassign
+    </a>
   </div>
 </td>

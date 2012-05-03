@@ -36,8 +36,6 @@ class Bitch extends Spine.Controller
     @html require('views/manage/tableHeader')()
     User.bind('refresh', @addAll)
 
-
-
   addOne: (user) =>
     row = new BitchRow(user: user)
     @here.append(row.render().el)

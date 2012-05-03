@@ -4,42 +4,26 @@ Assignment = require('models/assignment')
 AssignmentRecord = require('models/assignmentRecord')
 $     = Spine.$
 
-class WdAssRecRow extends Spine.Controller
-  tag: 'tr'
-
-  constructor: ->
-    super
-    throw "@assRec required" unless @assRec
-    @assRec.bind("update", @render)
-
-  render: (assRec) =>
-    @assRec = assRec if assRec
-
-    @html(@template(@assRec))
-    @
-
-  template: (assRec) ->
-    require('views/dashboard/row/wdAssRecRow')(assRec)
+AssRecRow = require('./assRecRow')
 
 
 class WdAssRecTable extends Spine.Controller
-
   elements:
     'tbody': 'here'
 
   constructor: ->
     super
-    @html require('views/dashboard/table/wdAssRecTable')()
+    @html require('views/dashboard/table/cleanAssRecTable')()
     AssignmentRecord.bind("refresh", @addAll)
 
   addOne: (assRec) =>
-    row = new WdAssRecRow(assRec: assRec)
+    row = new AssRecRow(assRec: assRec)
     @here.append(row.render().el)
 
   addAll: =>
+    @here.empty()
     wdAssRecs = AssignmentRecord.workDetailRecords()
     @log wdAssRecs
-    @log 'bueler?'
     @addOne(assRec) for assRec in wdAssRecs
 
 

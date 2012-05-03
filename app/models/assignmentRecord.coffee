@@ -35,34 +35,33 @@ class AssignmentRecord extends Spine.Model
 
   @workDetailRecords: ->
     records = @select (assRec) ->
-      if assRec.current and assRec.assignment[0].type == "workDetail" and assRec.assignment[0].name != "Kitchen"
+      if assRec.current and assRec.assignment[0].type == "workDetail"
         return true
       else
         return false
-  @kitchenRecords: ->
+  @midweekRecords: ->
     records = @select (assRec) ->
-      if not assRec.current or assRec.assignment[0].name != "Kitchen" or assRec.assignment[0].type != "workDetail"
+      if assRec.current and assRec.assignment[0].type == "midWeek"
+        return true
+      else
         return false
-      return true
-  @midWeekRecords: ->
-    records = @select (assRec) ->
-      if not assRec.current or assRec.assignment[0].type != "midWeek"
-        return false
-      return true
   @bitchRecords: ->
     records = @select (assRec) ->
-      if not assRec.current or assRec.assignment[0].type != "bitch"
+      if assRec.current and assRec.assignment[0].type == "bitch"
+        return true
+      else
         return false
-      return true
   @gmenRecords: ->
     records = @select (assRec) ->
-      if not assRec.current or assRec.assignment[0].type != "gmen"
+      if assRec.current and assRec.assignment[0].type == "gmen"
+        return true
+      else
         return false
-      return true
-  @soberRecords: ->
+  @soberDriverRecords: ->
     records = @select (assRec) ->
-      if not assRec.current or assRec.assignment[0].name == "Sober Driver"
+      if assRec.current and assRec.assignment[0].name == "Sober Driver"
+        return true
+      else
         return false
-      return true
 
 module.exports = AssignmentRecord

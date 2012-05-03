@@ -4,7 +4,11 @@ AssignmentRecord = require('models/assignmentRecord')
 Assignment = require('models/assignment')
 $     = Spine.$
 
-WdAssRecTable = require('controllers/dashboard/workDetails')
+WdAssRecTable = require('controllers/dashboard/wdAssRec')
+BitchAssRecTable = require('controllers/dashboard/bitchAssRec')
+GmenAssRecTable = require('controllers/dashboard/gmenAssRec')
+MidweekAssRecTable = require('controllers/dashboard/midweekAssRec')
+SoberDriverAssRecTable = require('controllers/dashboard/soberDriverAssRec')
 
 
 class Dashboard extends Spine.Controller
@@ -16,6 +20,7 @@ class Dashboard extends Spine.Controller
     '.bitch': 'bitch'
     '.gmen': 'gmen'
     '.soberDriver': 'soberDriver'
+    '.soberHost': 'soberHost'
 
   constructor: ->
     super
@@ -26,6 +31,21 @@ class Dashboard extends Spine.Controller
 
     @workDetail.append(@wdTable.el)
 
+    @bitchTable = new BitchAssRecTable()
+
+    @bitch.append(@bitchTable.el)
+
+    @gmenTable = new GmenAssRecTable()
+
+    @gmen.append(@gmenTable.el)
+
+    @midweekTable = new MidweekAssRecTable()
+
+    @midweek.append(@midweekTable.el)
+
+    @soberDriverTable = new SoberDriverAssRecTable()
+
+    @soberDriver.append(@soberDriverTable.el)
 
 
 module.exports = Dashboard

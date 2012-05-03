@@ -1,0 +1,10 @@
+<td class="center"><%= @assignment[0].day %></td>
+<td class="center">
+  <% for user in @users: %>
+    <div><%= user.firstName + " " + user.lastName %></div>
+  <% end %>
+</td>
+<td class="center">
+  <button class="note btn btn-mini">Add Note</button>
+  <button class="checkOff btn-mini btn btn-inverse">Check Off</button>
+</td>

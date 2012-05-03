@@ -1,0 +1,13 @@
+<table class="table table-striped ">
+  <thead>
+    <tr>
+      <th class="center">Day</th>
+      <th class="center">Assignment</th>
+      <th class="center">Bros</th>
+      <th class="center">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+

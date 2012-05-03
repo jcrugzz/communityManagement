@@ -1,7 +1,7 @@
 Spine = require('spine')
 
 class Assignment extends Spine.Model
-  @configure 'Assignment', 'name', 'type'
+  @configure 'Assignment', 'name', 'type', 'day'
 
   @extend Spine.Model.Ajax
 
@@ -28,5 +28,7 @@ class Assignment extends Spine.Model
     atts._id = atts.id
     delete atts.id
     atts
+
+
 
 module.exports = Assignment
